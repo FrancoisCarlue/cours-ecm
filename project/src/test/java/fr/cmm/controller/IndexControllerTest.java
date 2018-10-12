@@ -63,4 +63,9 @@ public class IndexControllerTest {
                 .andExpect(view().name("contact"));
     }
 
+    @Test
+    public void recetteNotFound() throws Exception {
+        mockMvc.perform(get("/recette/56375619d4c603aa4eb412dd")).andExpect(status().isNotFound());
+    }
+
 }
