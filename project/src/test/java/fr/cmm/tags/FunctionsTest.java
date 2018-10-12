@@ -23,4 +23,6 @@ public class FunctionsTest {
         assertEquals("&amp;a", Functions.text("&a"));
     }
 
+
+
 }
