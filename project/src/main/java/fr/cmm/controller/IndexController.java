@@ -98,5 +98,15 @@ public class IndexController {
     public String mentionsLegales() {
         return "mentions-legales";
     }
+
+    @RequestMapping("/404")
+    public String NotFound() {
+        return "404"; //cette valeur sera le fichier de vue cherché
+    }
+
+    @RequestMapping("/500")
+    public String InternalServerError() {
+        return "500";
+    }
 }
 
