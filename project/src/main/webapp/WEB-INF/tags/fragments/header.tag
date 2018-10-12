@@ -20,7 +20,7 @@
                         <li><a href="/recette-du-moment">Recette du moment</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/admin">Se connecter</a></li>
+                        <li><a href="/admin">Admin</a></li>
                     </ul>
                 </div>
             </div>

@@ -13,6 +13,9 @@
         <div class="thumbnail">
             <img src="/image/${recipe.imageId}" alt="${fn:escapeXml(recipe.title)}">
         </div>
+        <sec:authorize access="isAuthenticated()">
+        <a href="/admin/recettes/edit?id=${recipe.id}">Editer</a>
+        </sec:authorize>
     </div>
     <div class="col-xs-12 col-sm-8">
         <h1>${fn:escapeXml(recipe.title)}</h1>
