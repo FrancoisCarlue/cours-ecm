@@ -1,4 +1,5 @@
 <%@ tag body-content="empty" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -17,6 +18,9 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/recettes">Toutes les recettes</a></li>
                         <li><a href="/recette-du-moment">Recette du moment</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/admin">Se connecter</a></li>
                     </ul>
                 </div>
             </div>

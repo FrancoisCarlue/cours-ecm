@@ -72,5 +72,9 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.2.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-taglibs:4.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-acl:4.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:4.2.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-tx:4.2.2.RELEASE" level="project" />
   </component>
 </module>
