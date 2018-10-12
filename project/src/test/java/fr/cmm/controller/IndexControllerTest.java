@@ -62,4 +62,5 @@ public class IndexControllerTest {
         mockMvc.perform(get("/contact"))
                 .andExpect(view().name("contact"));
     }
+
 }
