@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 
 @RestController
@@ -19,17 +21,17 @@ public class ApiController {
     private RecipeService recipeService;
 
 
-    @RequestMapping("/api/recipes")
-    public Iterable<Recipe> hello(){
+    @RequestMapping(value = "/api/recipes",produces = "application/json")
+    public String listingRecipes(){
         PageQuery pageQuery = new PageQuery();
+        Iterable<Recipe> iterableRecipes = recipeService.findByQueryApi(pageQuery);
+        return recipeService.toJsonWithPage(iterableRecipes,pageQuery.getSize());
 
-        Iterable<Recipe> arrayRecipe = recipeService.findByQuery(pageQuery);
-        return arrayRecipe;
+
     }
 
-
-    @RequestMapping("/api/recipes/{id}")
-    public Recipe hello2(@PathVariable String id){
+    @RequestMapping(value="/api/recipes/{id}", produces = "application/json")
+    public Recipe showRecipe(@PathVariable String id){
         Recipe recipeApi = recipeService.findById(id);
         return recipeApi;
     }

@@ -1,9 +1,6 @@
 package fr.cmm.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +9,7 @@ import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Recipe {
+public class Recipe implements Comparable<Recipe>{
     @Id
     @ObjectId
     private String id;
@@ -135,5 +132,10 @@ public class Recipe {
                 ", text='" + text + '\'' +
                 ", randomLocation=" + Arrays.toString(randomLocation) +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Recipe recipeToCompare) {
+        return getDate().compareTo(recipeToCompare.getDate());
     }
 }
