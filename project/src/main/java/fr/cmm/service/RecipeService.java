@@ -5,9 +5,11 @@ import java.util.*;
 import javax.inject.Inject;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -62,23 +64,23 @@ public class RecipeService {
         return arrayRecipe;
     }
 
-    public String toJsonWithPage(Iterable<Recipe> list,int pageSize) {
+    public JSONArray toJsonWithPage(Iterable<Recipe> list,int pageSize) {
         Gson gson = new Gson();
-        StringBuilder sb = new StringBuilder();
+        JSONArray returnedJSON = new JSONArray();
         int counter=0;
         int page;
         for(Recipe recipe : list) {
             page = counter/pageSize+1;
             JSONObject json1 = new JSONObject(gson.toJson(recipe));
             JSONObject json2 = new JSONObject("{page: "+page+"}");
-            sb.append(mergeJSONObjects(json1,json2));
+            returnedJSON.put(mergeJSONObjects(json1,json2));
             counter = counter +1;
         }
-        return sb.toString();
+        return returnedJSON;
     }
 
-    public JSONObject mergeJSONObjects(JSONObject json1, JSONObject json2) {
-        JSONObject mergedJSON = new JSONObject();
+    public String mergeJSONObjects(JSONObject json1, JSONObject json2) {
+        JSONObject mergedJSON ;
         try {
             mergedJSON = new JSONObject(json1, JSONObject.getNames(json1));
             for (String key : JSONObject.getNames(json2)) {
@@ -88,7 +90,7 @@ public class RecipeService {
         } catch (JSONException e) {
             throw new RuntimeException("JSON Exception" + e);
         }
-        return mergedJSON;
+        return mergedJSON.toString();
     }
 
     public long countByQuery(PageQuery query) {
