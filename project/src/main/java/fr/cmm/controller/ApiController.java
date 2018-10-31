@@ -4,10 +4,10 @@ import fr.cmm.domain.Recipe;
 import fr.cmm.helper.PageQuery;
 import fr.cmm.service.RecipeService;
 import org.json.JSONArray;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-
 
 @RestController
 public class ApiController {
@@ -28,6 +28,12 @@ public class ApiController {
     @ResponseBody
     public Recipe showRecipe(@PathVariable String id){
         Recipe recipeApi = recipeService.findById(id);
+        if(recipeApi==null){
+            throw new ResourceNotFoundException();
+        }
         return recipeApi;
     }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public class ResourceNotFoundException extends RuntimeException { }
 }

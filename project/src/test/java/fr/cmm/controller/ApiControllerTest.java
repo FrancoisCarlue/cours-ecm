@@ -2,7 +2,10 @@ package fr.cmm.controller;
 
 
 import com.mongodb.util.JSON;
+import fr.cmm.domain.Recipe;
+import fr.cmm.helper.PageQuery;
 import fr.cmm.service.RecipeService;
+import org.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +21,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -47,21 +54,31 @@ public class ApiControllerTest {
 
     @Test
     public void recipeWithID() throws Exception {
-        mockMvc.perform(get("/api/recipes/5bbe19a1d5142a1074d0f61e").contentType(MediaType.APPLICATION_JSON)).andDo(print())
+        String id = "5bbe19a1d5142a1074d0f61e";
+
+        Mockito.when(recipeService.findById(id)).thenReturn(new Recipe());
+        mockMvc.perform(get("/api/recipes/" + id).contentType(MediaType.APPLICATION_JSON)).andDo(print())
                 .andExpect(status().is(200))
-                //.andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
         ;
     }
 
     @Test
     public void recipes() throws Exception {
-        mockMvc.perform(get("/api/recipes").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200));
+        Mockito.when(recipeService.findByQueryApi(any())).thenReturn(new ArrayList<Recipe>());
+        Mockito.when(recipeService.toJsonWithPage(any(),anyInt())).thenReturn(new JSONArray());
         mockMvc.perform(get("/api/recipes").contentType(MediaType.APPLICATION_JSON)).andDo(print())
-                .andExpect(status().isOk());
-                //.andExpect(content().contentType("application/json"))
-                //.andExpect(jsonPath("$.Page").value(1));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"));
 
+    }
+
+    @Test
+    public void recette404() throws Exception {
+        String id = "blablabla";
+
+        mockMvc.perform(get("/api/recipes/" + id))
+                .andExpect(status().is(404));
     }
 
 }
